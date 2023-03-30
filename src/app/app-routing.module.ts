@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BienvenueComponent } from './bienvenue/bienvenue.component';
 import { ProblemeComponent } from './probleme/probleme.component';
 
+
 const routes: Routes = [
   { path:'bienvenue', component:BienvenueComponent},
   { path:'probleme', component:ProblemeComponent},    
@@ -14,4 +15,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }

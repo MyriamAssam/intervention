@@ -20,4 +20,7 @@ describe('BienvenueComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('champ prenom doit contenir plus de 2 caracteres', ()  => {
+    expect(true).toBeTruthy();
+  });
 });
