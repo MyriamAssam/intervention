@@ -44,18 +44,18 @@ it('4 : prenom valide avec 0 caractères', () => {
  
  expect(zone.valid).toBeFalsy();
 });
-it('5 : prenom valide avec 10 espaces', () => {
+it('5 : prenom invalide avec 10 espaces', () => {
 
   let zone = component.problemeForm.controls['Prenom'];
   zone.setValue(' '.repeat(10));
  
- expect(zone.valid).toBeTruthy();
+ expect(zone.valid).toBeFalsy();
 });
-it('6 : prenom valide avec 2 espaces et 1 caractères', () => {
+it('6 : prenom invalide avec 2 espaces et 1 caractères', () => {
 
   let zone = component.problemeForm.controls['Prenom'];
   zone.setValue('  a');
  
- expect(zone.valid).toBeTruthy();
+ expect(zone.valid).toBeFalsy();
 });
 });
