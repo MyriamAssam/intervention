@@ -7,6 +7,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BienvenueComponent } from './bienvenue/bienvenue.component';
 import { ProblemeComponent } from './probleme/probleme.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { CategorieData } from './probleme/categorie-data';
+import { CategorieService } from './probleme/categorie.service';
 
 @NgModule({
   declarations: [
@@ -17,9 +21,11 @@ import { ProblemeComponent } from './probleme/probleme.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule .forRoot(CategorieData, { delay: 1000 })
 ],
-  providers: [],
+  providers: [CategorieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
