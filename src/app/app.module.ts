@@ -21,7 +21,9 @@ import { CategorieService } from './probleme/categorie.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule .forRoot(CategorieData, { delay: 1000 })
 ],
   providers: [],
   bootstrap: [AppComponent]

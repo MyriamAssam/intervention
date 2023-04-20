@@ -19,7 +19,14 @@ export class ProblemeComponent implements OnInit{
   ngOnInit(){
     this.problemeForm = this.fb.group({
       prenom:['', [VerifierCaracteresValidator.longueurMinimum(3), Validators.required]],
-      type: ['']
+      type: [''],
+      noTypeProbleme: ['', Validators.required], 
+     courrielGroup: this.fb.group({
+    courriel: [{value: '', disabled: true}],
+    courrielConfirmation: [{value: '', disabled: true}],
+  }),
+telephone: [{value: '', disabled: true}],
+      
     });
     
     
@@ -27,6 +34,38 @@ export class ProblemeComponent implements OnInit{
     .subscribe(cat => this.categoriesProduits = cat,
                error => this.errorMessage = <any>error);  
               }
+              gestionNotifications(typeCueillette: string): void {
+                const dateCommandeControl = this.problemeForm.get('courrielGroup.courriel');
+                const dateExpeditionControl = this.problemeForm.get('courrielGroup.courrielConfirmation');   
+                const datesGroupControl = this.problemeForm.get('courrielGroup');      
+            
+                dateCommandeControl.clearValidators();
+                dateCommandeControl.reset();  
+                dateCommandeControl.disable();  
+            
+                dateExpeditionControl.clearValidators();
+                dateExpeditionControl.reset();    
+                dateExpeditionControl.disable();
+            
+                if (typeCueillette === 'Telephone') {   
+                        dateCommandeControl.setValidators([Validators.required]);      
+                        dateCommandeControl.enable();  
+                        dateExpeditionControl.setValidators([Validators.required]);              
+                        dateExpeditionControl.enable();  
+                                            
+                  }   
+                  else
+                  {
+                    if(typeCueillette === 'Adresse courriel')
+                    {
+                      dateCommandeControl.setValidators([Validators.required]);      
+                      dateCommandeControl.disable();           
+                    }
+                  }
+                dateCommandeControl.updateValueAndValidity();   
+                dateExpeditionControl.updateValueAndValidity();         
+              }
+                   
  save() {
 }
 }
