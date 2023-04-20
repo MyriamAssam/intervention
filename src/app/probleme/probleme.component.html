@@ -42,7 +42,7 @@
         <select class="form-control" 
         id="typeId"
         formControlName="type">
-        <option value="">Sélectionner une catégorie de produit</option>
+        <option value="">Sélectionner un type de probleme</option>
         <option *ngFor="let cat of categoriesProduits" [value]="cat.id">{{cat.descriptionCategorie}}</option>
       
     </select>
