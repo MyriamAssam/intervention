@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VerifierCaracteresValidator } from '../Shared/longueur-minimum/longueur-minimum.component';
 import { ICategorie } from './categorie';
 import { CategorieService } from './categorie.service';
+import { emailMatcherValidator } from '../Shared/email-matcher/email-matcher.component';
 
 @Component({
   selector: 'stk-probleme',
@@ -35,35 +36,39 @@ telephone: [{value: '', disabled: true}],
                error => this.errorMessage = <any>error);  
               }
               gestionNotifications(typeCueillette: string): void {
-                const dateCommandeControl = this.problemeForm.get('courrielGroup.courriel');
-                const dateExpeditionControl = this.problemeForm.get('courrielGroup.courrielConfirmation');   
-                const datesGroupControl = this.problemeForm.get('courrielGroup');      
+                const CourrielControl = this.problemeForm.get('courrielGroup.courriel');
+                const ConfirmationControl = this.problemeForm.get('courrielGroup.courrielConfirmation');   
+                const CourrielGroupControl = this.problemeForm.get('courrielGroup');      
+                const TelephoneControl = this.problemeForm.get('telephone');
+                CourrielControl.clearValidators();
+                CourrielControl.reset();  
+                CourrielControl.disable();  
             
-                dateCommandeControl.clearValidators();
-                dateCommandeControl.reset();  
-                dateCommandeControl.disable();  
-            
-                dateExpeditionControl.clearValidators();
-                dateExpeditionControl.reset();    
-                dateExpeditionControl.disable();
+                ConfirmationControl.clearValidators();
+                ConfirmationControl.reset();    
+                ConfirmationControl.disable();
             
                 if (typeCueillette === 'Telephone') {   
-                        dateCommandeControl.setValidators([Validators.required]);      
-                        dateCommandeControl.enable();  
-                        dateExpeditionControl.setValidators([Validators.required]);              
-                        dateExpeditionControl.enable();  
+                  CourrielControl.setValidators([Validators.required]);      
+                  CourrielControl.enable();  
+                  ConfirmationControl.setValidators([Validators.required]);              
+                  ConfirmationControl.enable();  
                                             
                   }   
                   else
                   {
                     if(typeCueillette === 'Adresse courriel')
                     {
-                      dateCommandeControl.setValidators([Validators.required]);      
-                      dateCommandeControl.disable();           
+                      CourrielControl.setValidators([Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]);
+                      CourrielControl.enable();
+                      ConfirmationControl.setValidators([Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]);
+                      ConfirmationControl.enable();
+                      CourrielGroupControl.setValidators([Validators.compose([emailMatcherValidator.courrielDifferents()])]);
                     }
                   }
-                dateCommandeControl.updateValueAndValidity();   
-                dateExpeditionControl.updateValueAndValidity();         
+                  CourrielControl.updateValueAndValidity();   
+                  ConfirmationControl.updateValueAndValidity();     
+                  CourrielGroupControl.updateValueAndValidity();    
               }
                    
  save() {
