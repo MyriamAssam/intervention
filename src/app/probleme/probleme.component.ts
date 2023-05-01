@@ -65,12 +65,22 @@ telephone: [{value: '', disabled: true}],
                       ConfirmationControl.enable();
                       CourrielGroupControl.setValidators([Validators.compose([emailMatcherValidator.courrielDifferents()])]);
                     }
-                  }
+                  
                   CourrielControl.updateValueAndValidity();   
                   ConfirmationControl.updateValueAndValidity();     
                   CourrielGroupControl.updateValueAndValidity();    
+            
+                    if(typeCueillette === 'Inconnu')
+                    {
+                      CourrielControl.setValidators([Validators.required]);
+                      CourrielControl.disable();
+                }
               }
-                   
+              CourrielControl.updateValueAndValidity();
+              CourrielGroupControl.updateValueAndValidity();
+            }
+
  save() {
 }
+
 }
